@@ -1,0 +1,26 @@
+---
+- name: Deploy monitoring page
+  hosts: web
+  become: yes
+
+  vars:
+    hostname: "{{ ansible_hostname }}"
+    date: "{{ ansible_date_time.date }}"
+
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+
+    - name: Start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Deploy HTML file
+      template:
+        src: index.html
+        dest: /var/www/html/index.html
