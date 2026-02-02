@@ -1,5 +1,11 @@
 pipeline {
     agent any
+stage('Check Ansible') {
+    steps {
+        sh 'which ansible || echo "ansible NOT found"'
+        sh 'ansible --version || echo "cannot run ansible"'
+    }
+}
 
     stages {
         stage('Clone Repository') {
