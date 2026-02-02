@@ -9,18 +9,17 @@
 
   tasks:
     - name: Install nginx
-      apt:
+      yum:
         name: nginx
         state: present
-        update_cache: yes
 
     - name: Start nginx
       service:
         name: nginx
-        state: started
+        state: restarted
         enabled: yes
 
     - name: Deploy HTML file
       template:
         src: index.html
-        dest: /var/www/html/index.html
+        dest: /usr/share/nginx/html/index.html
